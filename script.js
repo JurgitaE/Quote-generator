@@ -1,12 +1,31 @@
 import { localQuotes } from './quotes.js'
-console.clear()
+console.clear();
+
+const quoteContainer = document.getElementById('quote-container');
+const quoteText = document.getElementById('quote');
+const authorText = document.getElementById('author');
+const twitterBtn = document.getElementById('twitter-button');
+const quoteBtn = document.getElementById('new-quote');
+
 // Show new quote
-function newQuote(quotes) {
-    const randomIndex = Math.ceil(Math.random() * quotes.length);
-    console.log(quotes[randomIndex].author, quotes[randomIndex].text);
+function newQuote() {
+    const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+    console.log(quote);
+
+    authorText.textContent = quote.author ? quote.author : 'Unknown';
+    quoteText.textContent = quote.text;
+
+    if (quote.text.length > 120) {
+        quoteText.classList.add('long-quote');
+    } else {
+        quoteText.classList.remove('long-quote');
+    }
+    console.log('fucku');
 }
-/* // Get Quotes from API
-let apiQuotes = [];
+
+quoteBtn.addEventListener('click', newQuote);
+/* let apiQuotes = [];
+// Get Quotes from API
 async function getQuotes() {
     const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
     try {
@@ -20,4 +39,4 @@ async function getQuotes() {
 getQuotes() */
 
 // Playing with quotes.js locally
-newQuote(localQuotes)
+newQuote(localQuotes);
