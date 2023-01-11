@@ -1,4 +1,5 @@
-
+import { localQuotes } from './quotes.js'
+console.clear()
 // Show new quote
 function newQuote(quotes) {
     const randomIndex = Math.ceil(Math.random() * quotes.length);
