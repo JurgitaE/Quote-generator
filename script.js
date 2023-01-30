@@ -1,42 +1,24 @@
-import { localQuotes } from './quotes.js'
+import { getQuotes } from './js/components/api-quotes.js';
+import { newQuote } from './js/components/newQuotes.js';
+
 console.clear();
+
+const useLocal = true;
+if (!useLocal) getQuotes();
+if (useLocal) newQuote();
+
 
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter-button');
+const twitterBtn = document.getElementById('twitter');
 const quoteBtn = document.getElementById('new-quote');
 
-// Show new quote
-function newQuote() {
-    const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-    console.log(quote);
-
-    authorText.textContent = quote.author ? quote.author : 'Unknown';
-    quoteText.textContent = quote.text;
-
-    if (quote.text.length > 120) {
-        quoteText.classList.add('long-quote');
-    } else {
-        quoteText.classList.remove('long-quote');
-    }
-    console.log('fucku');
+// Tweet Quote
+function tweetQuote() {
+    const twitterURL = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+    window.open(twitterURL, '_blank');
 }
-
-quoteBtn.addEventListener('click', newQuote);
-/* let apiQuotes = [];
-// Get Quotes from API
-async function getQuotes() {
-    const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
-    try {
-        const response = await fetch(apiUrl);
-        apiQuotes = await response.json();
-        newQuote(apiQuotes);
-    } catch (error) {
-        // Catch error here
-    }
-};
-getQuotes() */
-
-// Playing with quotes.js locally
-newQuote(localQuotes);
+// Event listeners
+quoteBtn.addEventListener('click', getQuotes);
+twitterBtn.addEventListener('click', tweetQuote);
