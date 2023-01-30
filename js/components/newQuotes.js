@@ -1,9 +1,8 @@
-import { localQuotes } from "../data/quotes.js";
 
-function newQuote(quotes = localQuotes) {
+function newQuote(quotes) {
     const quoteText = document.getElementById('quote');
     const authorText = document.getElementById('author');
-    // console.log(quotes);
+    console.log(quotes);
 
     const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
