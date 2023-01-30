@@ -1,42 +1,50 @@
-import { localQuotes } from './quotes.js'
+import { getQuotes } from './js/components/api-quotes.js';
+import { newQuote } from './js/components/newQuotes.js';
+import { localQuotes } from './js/data/quotes.js';
+
 console.clear();
 
+const selectBtn = document.getElementById('select');
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
-const twitterBtn = document.getElementById('twitter-button');
+const twitterBtn = document.getElementById('twitter');
 const quoteBtn = document.getElementById('new-quote');
+// primary values
+let useLocal = true;
+selectBtn.textContent = 'Change to API quotes';
 
-// Show new quote
-function newQuote() {
-    const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
-    console.log(quote);
+if (!useLocal) getQuotes();
+if (useLocal) newQuote(localQuotes);
 
-    authorText.textContent = quote.author ? quote.author : 'Unknown';
-    quoteText.textContent = quote.text;
 
-    if (quote.text.length > 120) {
-        quoteText.classList.add('long-quote');
-    } else {
-        quoteText.classList.remove('long-quote');
-    }
-    console.log('fucku');
+
+
+// Tweet Quote
+function tweetQuote() {
+    const twitterURL = `https://twitter.com/intent/tweet?text=${quoteText.textContent} - ${authorText.textContent}`;
+    window.open(twitterURL, '_blank');
 }
+// Event listeners
+selectBtn.addEventListener('click', () => {
+    selectBtn.textContent = selectBtn.textContent === 'Change to API quotes' ? 'Change to Local quotes' : 'Change to API quotes';
+    if (selectBtn.textContent === 'Change to API quotes') {
+        useLocal = true;
+        newQuote(localQuotes);
 
-quoteBtn.addEventListener('click', newQuote);
-/* let apiQuotes = [];
-// Get Quotes from API
-async function getQuotes() {
-    const apiUrl = 'https://jacintodesign.github.io/quotes-api/data/quotes.json';
-    try {
-        const response = await fetch(apiUrl);
-        apiQuotes = await response.json();
-        newQuote(apiQuotes);
-    } catch (error) {
-        // Catch error here
+    } else {
+        useLocal = false;
+        getQuotes();
     }
-};
-getQuotes() */
+})
+quoteBtn.addEventListener('click', () => {
+    if (useLocal) {
+        newQuote(localQuotes)
+    } else {
+        getQuotes();
+    }
+});
 
-// Playing with quotes.js locally
-newQuote(localQuotes);
+
+
+twitterBtn.addEventListener('click', tweetQuote);

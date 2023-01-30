@@ -28,7 +28,21 @@ body::before {
     background-repeat: repeat;
     z-index: -1;
 }
-
+main {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+#select {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    background-color: rgb(49, 34, 213);
+    box-shadow: 0 0.3rem rgba(49, 34, 213, 0.65);
+}
 .quote-container {
     width: auto;
     max-width: 900px;
