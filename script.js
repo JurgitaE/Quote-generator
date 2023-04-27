@@ -1,7 +1,6 @@
 import { getQuotes } from './js/components/api-quotes.js';
 import { newQuote } from './js/components/newQuotes.js';
 import { localQuotes } from './js/data/quotes.js';
-import { showLoading, hideLoading } from "./js/components/loader.js";
 
 const selectBtn = document.getElementById('select');
 const quoteText = document.getElementById('quote');
