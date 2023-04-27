@@ -1,24 +1,20 @@
 import { getQuotes } from './js/components/api-quotes.js';
 import { newQuote } from './js/components/newQuotes.js';
 import { localQuotes } from './js/data/quotes.js';
-
-console.clear();
+import { showLoading, hideLoading } from "./js/components/loader.js";
 
 const selectBtn = document.getElementById('select');
-const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
 const authorText = document.getElementById('author');
 const twitterBtn = document.getElementById('twitter');
 const quoteBtn = document.getElementById('new-quote');
+
 // primary values
 let useLocal = true;
 selectBtn.textContent = 'Change to API quotes';
 
 if (!useLocal) getQuotes();
 if (useLocal) newQuote(localQuotes);
-
-
-
 
 // Tweet Quote
 function tweetQuote() {
@@ -36,15 +32,14 @@ selectBtn.addEventListener('click', () => {
         useLocal = false;
         getQuotes();
     }
-})
+});
 quoteBtn.addEventListener('click', () => {
     if (useLocal) {
-        newQuote(localQuotes)
+        newQuote(localQuotes);
     } else {
         getQuotes();
     }
 });
-
 
 
 twitterBtn.addEventListener('click', tweetQuote);
